@@ -1,0 +1,10 @@
+jar包： <dependency>
+            <groupId>javax.websocket</groupId>
+            <artifactId>javax.websocket-api</artifactId>
+            <version>1.1</version>
+        </dependency>
+运行流程：后台通过onpen方法推送消息到前台，浏览器前端通过onMessage方法发送消息到后台，后台的onMesssage接收消息！
+核心内容：
+top.xp.controller
+webapp/view/index.jsp
+webapp/view/page.jsp
