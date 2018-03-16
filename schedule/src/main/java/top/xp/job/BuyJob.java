@@ -1,4 +1,4 @@
-package top.xp.schedule;
+package top.xp.job;
 
 import org.quartz.Job;
 import org.quartz.JobDataMap;

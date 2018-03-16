@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+<!--加载扫描作业详情类-->
+    <context:component-scan base-package="top.xp.job"/>
+    <!-- 配置作业详情，触发器，调度器 -->
+    <bean id="moneyJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <property name="name" value="moneyJob"/>
+        <property name="group" value="group"/>
+        <property name="jobClass" value="top.xp.job.MoneyJob"/>
+        <property name="durability" value="true"/>
+    </bean>
+<!--在类中编译作业详情-->
+    <bean id="moneyTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+        <property name="repeatInterval" value="5000"/>
+        <property name="repeatCount" value="3"/>
+        <!--绑定作业详情-->
+        <property name="jobDetail" ref="moneyJob"/>
+    </bean>
+<!--在方法中编译作业详情-->
+    <bean id="mailJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="name" value="mailJob"/>
+        <property name="group" value="group"/>
+        <!--
+        <property name="targetClass" value="com.gs.job.MailJob"/>
+        -->
+        <property name="targetObject" ref="mailJob"/>
+        <property name="targetMethod" value="run"/>
+    </bean>
+<!--配置中设置时间触发器 作业详情类不需要接入job接口-->
+    <bean id="mailTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="name" value="mailTrigger"/>
+        <property name="group" value="group"/>
+        <property name="jobDetail" ref="mailJobDetail"/>
+        <property name="cronExpression" value="0/5 * * * * ?"/>
+    </bean>
+<!--作业详情和触发器建立联系-->
+    <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="jobDetails">
+            <list>
+                <ref bean="moneyJob"/>
+                <ref bean="mailJobDetail"/>
+            </list>
+        </property>
+        <property name="triggers">
+            <list>
+                <ref bean="moneyTrigger"/>
+                <ref bean="mailTrigger"/>
+            </list>
+        </property>
+    </bean>
+
+</beans>

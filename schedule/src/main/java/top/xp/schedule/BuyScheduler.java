@@ -3,6 +3,7 @@ package top.xp.schedule;
 
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
+import top.xp.job.BuyJob;
 
 public class BuyScheduler {
     public static void main(String[] args) {
@@ -10,7 +11,7 @@ public class BuyScheduler {
             Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
             JobDataMap dataMap = new JobDataMap();
             dataMap.put("money", 100);
-            dataMap.put("thing", "陈桢");
+            dataMap.put("thing", "菜");
             JobDetail jobDetail = JobBuilder.newJob(BuyJob.class)
                     .withIdentity("buyJob", "buyJob").setJobData(dataMap).build();
 
