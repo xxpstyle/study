@@ -1,0 +1,2 @@
+生成客户端代码：dos命令打开jdk的bin目录运行下行
+wsimport -s G:\MyTest\study\study\webService\jdk\src\main\java -p top.xp.client -keep http://127.0.0.1/webservice/hello?wsdl -encoding utf-8

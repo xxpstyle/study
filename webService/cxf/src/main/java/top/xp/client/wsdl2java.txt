@@ -1,0 +1,2 @@
+生成客户端代码：dos命令打开apache-cxf-3.2.2.zip解压包的bin目录运行下行
+wsdl2java -d G:\MyTest\study\study\webService\cxf\src\main\java -p top.xp.client -encoding utf-8 -client http://localhost:8080/webservice/hello?wsdl
